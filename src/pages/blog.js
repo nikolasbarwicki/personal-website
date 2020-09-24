@@ -2,12 +2,12 @@ import React from 'react';
 
 import Layout from '../components/Layout';
 
-const Index = () => {
+const Blog = () => {
   return (
     <Layout>
-      <p>index page</p>
+      <p>blog page</p>
     </Layout>
   );
 };
 
-export default Index;
+export default Blog;
