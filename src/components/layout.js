@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from '../styles/GlobalStyle';
 import theme from '../styles/theme';
@@ -8,15 +8,25 @@ import theme from '../styles/theme';
 import Nav from './Nav';
 import Footer from './Footer';
 
+const Wrapper = styled.div`
+  max-width: 110rem;
+  margin: 0 auto;
+`;
+
+const Main = styled.main`
+  padding-top: 10rem;
+`;
+
 const Layout = ({ children }) => {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <ThemeProvider theme={theme} />
-      <Nav />
-      <main>{children}</main>
-      <Footer />
-    </>
+      <Wrapper>
+        <Nav />
+        <Main>{children}</Main>
+        <Footer />
+      </Wrapper>
+    </ThemeProvider>
   );
 };
 

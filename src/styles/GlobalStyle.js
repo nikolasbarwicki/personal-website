@@ -11,6 +11,11 @@ const GlobalStyle = createGlobalStyle`
 
   }
 
+  *::selection {
+    color: #fff;
+    background: ${theme.darkBlue};
+  }
+
   html {
     font-size: 62.5%;
     -webkit-font-smoothing: antialiased;
@@ -21,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 2rem;
     font-family: 'Poppins', sans-serif;
     color: ${theme.darkGray};
+    line-height: 1.6;
   }
 
   a {
@@ -28,12 +34,22 @@ const GlobalStyle = createGlobalStyle`
       color: inherit;
   }
 
+  ul, ol {
+    list-style: none;
+  }
+
   h1, h2, h3, h4, h5, h6 {
       color: ${theme.darkBlue};
       font-family: "Asap", sans-serif;
+      line-height: 1.2;
   }
 
-  h1, h2 {
+  h1 {
+      font-size: 4.8rem;
+      margin-bottom: 4rem;
+  }
+
+  h2 {
       font-size: 4.8rem;
   }
 
