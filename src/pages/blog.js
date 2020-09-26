@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import PropTypes from 'prop-types';
+import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
@@ -62,7 +63,16 @@ const ArticlesList = styled.section`
   }
 `;
 
-const Blog = () => {
+const Blog = ({ data }) => {
+  const postsByYear = {};
+
+  data.allMdx.nodes.forEach((post) => {
+    const year = post.frontmatter.date.split('-')[1];
+    postsByYear[year] = [...(postsByYear[year] || []), post];
+  });
+
+  const years = Object.keys(postsByYear).reverse();
+
   return (
     <Layout>
       <Hero>
@@ -116,91 +126,50 @@ const Blog = () => {
       </section>
       <ArticlesList>
         <Heading headingText="All articles" />
-        <section>
-          <h3>2020</h3>
-          <ul>
-            <li>
-              <ArticleLink>
-                <time>Sep 10</time>
-                <h4>How should I style my react application?</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Aug 25</time>
-                <h4>Authenticaion Patterns for next.js</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Sep 10</time>
-                <h4>How should I style my react application?</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Aug 25</time>
-                <h4>Authenticaion Patterns for next.js</h4>
-              </ArticleLink>
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>2019</h3>
-          <ul>
-            <li>
-              <ArticleLink>
-                <time>Sep 10</time>
-                <h4>How should I style my react application?</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Aug 25</time>
-                <h4>Authenticaion Patterns for next.js</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Sep 10</time>
-                <h4>How should I style my react application?</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Aug 25</time>
-                <h4>Authenticaion Patterns for next.js</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Sep 10</time>
-                <h4>How should I style my react application?</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Aug 25</time>
-                <h4>Authenticaion Patterns for next.js</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Sep 10</time>
-                <h4>How should I style my react application?</h4>
-              </ArticleLink>
-            </li>
-            <li>
-              <ArticleLink>
-                <time>Aug 25</time>
-                <h4>Authenticaion Patterns for next.js</h4>
-              </ArticleLink>
-            </li>
-          </ul>
-        </section>
+        {years.map((year) => (
+          <section>
+            <h3>{year}</h3>
+            <ul>
+              {postsByYear[year].map((item) => (
+                <li>
+                  <ArticleLink to={`/blog/${item.frontmatter.slug}`}>
+                    <time>{item.frontmatter.date.split('-')[0]}</time>
+                    <h4>{item.frontmatter.title}</h4>
+                  </ArticleLink>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </ArticlesList>
     </Layout>
   );
 };
+
+export const query = graphql`
+  {
+    allMdx(sort: { order: DESC, fields: frontmatter___date }) {
+      nodes {
+        frontmatter {
+          date(formatString: "DD MMM-YYYY")
+          slug
+          title
+        }
+      }
+    }
+  }
+`;
+
+Blog.propTypes = {
+  data: PropTypes.objectOf(
+    PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+      ).isRequired,
+    ).isRequired,
+  ).isRequired,
+};
+
+Blog.defaultProps = {};
 
 export default Blog;
