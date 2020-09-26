@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 7rem;
+  margin-bottom: 3.5rem;
 
   a {
     color: ${(props) => props.theme.blue};

@@ -1,98 +1,204 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import styled from 'styled-components';
 
 import Layout from '../components/layout';
+import Heading from '../components/Heading';
+
+const Hero = styled.div`
+  text-align: center;
+  margin: 10.5rem 0;
+`;
+
+const Wrapper = styled.article`
+  align-items: center;
+  padding: 2.5rem 3.5rem;
+  background-color: ${(props) => props.theme.background};
+  border-radius: 3rem;
+  margin-bottom: 3.5rem;
+
+  time {
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin: 1.5rem 0 1.5rem;
+  }
+
+  div {
+    justify-self: end;
+  }
+`;
+
+const ArticleLink = styled(Link)`
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  cursor: pointer;
+
+  time {
+    display: block;
+    width: 8rem;
+  }
+
+  div {
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.background};
+    border-radius: 1rem;
+  }
+`;
+
+const ArticlesList = styled.section`
+  margin: 7rem 0;
+
+  section {
+    margin: 3.5rem 0;
+  }
+
+  h3 {
+    font-size: 3.6rem;
+    margin-bottom: 1.5rem;
+  }
+`;
 
 const Blog = () => {
   return (
     <Layout>
-      <h1>Hi, I am Nikolas and this is my blog</h1>
-      <h3>
-        23 year old frontend developer and designer, based in Wroclaw, Poland.
-        I&apos;m passionate about improving the lives of others through coding
-        and constantly looking to learn new things everyday.
-      </h3>
+      <Hero>
+        <h1>
+          Hi,
+          <span role="img" aria-label="Waving hand emoji">
+            {' '}
+            👋
+            <br />
+          </span>
+          I am Nikolas, and this is my blog
+        </h1>
+        <p>
+          I share my frontend engineering experience, and my expertise with
+          technical articles about React, Redux and Gatsby
+        </p>
+      </Hero>
+
       <section>
-        <h2>Featured</h2>
-        <article>
+        <Heading headingText="Featured" />
+        <Wrapper>
           <Link to="/blog/post-1">
             <time>September 10, 2020</time>
-            <h4>How should I style my react application?</h4>
+            <h3>How should I style my react application?</h3>
             <p>
               Learn how to add authencitaion with next.js. This guide covers
-              custeom react hooks, protecting routers and redirecting on the
-              server and includes.
+              custeom react hooks, protecting routers and redirecting.
             </p>
           </Link>
-        </article>
-        <article>
+        </Wrapper>
+        <Wrapper>
           <Link to="/blog/post-1">
             <time>September 10, 2020</time>
-            <h4>How should I style my react application?</h4>
+            <h3>How should I style my react application?</h3>
             <p>
               Learn how to add authencitaion with next.js. This guide covers
-              custeom react hooks, protecting routers and redirecting on the
-              server and includes.
+              custeom react hooks, protecting routers and redirecting.
             </p>
           </Link>
-        </article>
-        <article>
+        </Wrapper>
+        <Wrapper>
           <Link to="/blog/post-1">
             <time>September 10, 2020</time>
-            <h4>How should I style my react application?</h4>
+            <h3>How should I style my react application?</h3>
             <p>
               Learn how to add authencitaion with next.js. This guide covers
-              custeom react hooks, protecting routers and redirecting on the
-              server and includes.
+              custeom react hooks, protecting routers and redirecting.
             </p>
           </Link>
-        </article>
+        </Wrapper>
       </section>
-      <section>
-        <h2>All articles</h2>
+      <ArticlesList>
+        <Heading headingText="All articles" />
         <section>
-          <h2>2020</h2>
+          <h3>2020</h3>
           <ul>
             <li>
-              <time>Sep 10</time>
-              <div>How should I style my react application?</div>
+              <ArticleLink>
+                <time>Sep 10</time>
+                <h4>How should I style my react application?</h4>
+              </ArticleLink>
             </li>
             <li>
-              <time>Aug 25</time>
-              <div>Authenticaion Patterns for next.js</div>
+              <ArticleLink>
+                <time>Aug 25</time>
+                <h4>Authenticaion Patterns for next.js</h4>
+              </ArticleLink>
             </li>
             <li>
-              <time>Sep 10</time>
-              <div>How should I style my react application?</div>
+              <ArticleLink>
+                <time>Sep 10</time>
+                <h4>How should I style my react application?</h4>
+              </ArticleLink>
             </li>
             <li>
-              <time>Aug 25</time>
-              <div>Authenticaion Patterns for next.js</div>
+              <ArticleLink>
+                <time>Aug 25</time>
+                <h4>Authenticaion Patterns for next.js</h4>
+              </ArticleLink>
             </li>
           </ul>
         </section>
         <section>
-          <h2>2019</h2>
+          <h3>2019</h3>
           <ul>
             <li>
-              <time>Sep 10</time>
-              <div>How should I style my react application?</div>
+              <ArticleLink>
+                <time>Sep 10</time>
+                <h4>How should I style my react application?</h4>
+              </ArticleLink>
             </li>
             <li>
-              <time>Aug 25</time>
-              <div>Authenticaion Patterns for next.js</div>
+              <ArticleLink>
+                <time>Aug 25</time>
+                <h4>Authenticaion Patterns for next.js</h4>
+              </ArticleLink>
             </li>
             <li>
-              <time>Sep 10</time>
-              <div>How should I style my react application?</div>
+              <ArticleLink>
+                <time>Sep 10</time>
+                <h4>How should I style my react application?</h4>
+              </ArticleLink>
             </li>
             <li>
-              <time>Aug 25</time>
-              <div>Authenticaion Patterns for next.js</div>
+              <ArticleLink>
+                <time>Aug 25</time>
+                <h4>Authenticaion Patterns for next.js</h4>
+              </ArticleLink>
+            </li>
+            <li>
+              <ArticleLink>
+                <time>Sep 10</time>
+                <h4>How should I style my react application?</h4>
+              </ArticleLink>
+            </li>
+            <li>
+              <ArticleLink>
+                <time>Aug 25</time>
+                <h4>Authenticaion Patterns for next.js</h4>
+              </ArticleLink>
+            </li>
+            <li>
+              <ArticleLink>
+                <time>Sep 10</time>
+                <h4>How should I style my react application?</h4>
+              </ArticleLink>
+            </li>
+            <li>
+              <ArticleLink>
+                <time>Aug 25</time>
+                <h4>Authenticaion Patterns for next.js</h4>
+              </ArticleLink>
             </li>
           </ul>
         </section>
-      </section>
+      </ArticlesList>
     </Layout>
   );
 };

@@ -8,7 +8,7 @@ import Banner from '../components/Banner';
 
 const Index = () => {
   return (
-    <Layout>
+    <Layout fullWidth>
       <Hero />
       <Projects />
       <Articles />

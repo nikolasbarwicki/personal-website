@@ -20,12 +20,13 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: ${theme.darkGray};
   }
 
   body {
     font-size: 2rem;
     font-family: 'Poppins', sans-serif;
-    color: ${theme.darkGray};
+    color: inherit;
     line-height: 1.6;
   }
 
@@ -46,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
 
   h1 {
       font-size: 4.8rem;
-      margin-bottom: 4rem;
+      margin-bottom: 3.5rem;
   }
 
   h2 {
@@ -59,6 +60,10 @@ const GlobalStyle = createGlobalStyle`
 
   h4 {
       font-size: 2rem;
+  }
+
+  time {
+    font-size: 1.4rem;
   }
 `;
 

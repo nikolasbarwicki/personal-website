@@ -14,16 +14,18 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
+  margin: 0 auto;
   padding-top: 10rem;
+  max-width: ${(props) => (props.fullWidth ? '110rem' : '72rem')};
 `;
 
-const Layout = ({ children }) => {
+const Layout = ({ children, fullWidth }) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Wrapper>
         <Nav />
-        <Main>{children}</Main>
+        <Main fullWidth={fullWidth}>{children}</Main>
         <Footer />
       </Wrapper>
     </ThemeProvider>
@@ -32,10 +34,12 @@ const Layout = ({ children }) => {
 
 Layout.propTypes = {
   children: PropTypes.node,
+  fullWidth: PropTypes.bool,
 };
 
 Layout.defaultProps = {
   children: null,
+  fullWidth: false,
 };
 
 export default Layout;
