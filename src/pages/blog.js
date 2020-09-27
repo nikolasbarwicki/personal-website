@@ -64,9 +64,11 @@ const ArticlesList = styled.section`
 `;
 
 const Blog = ({ data }) => {
+  const { featured } = data;
+
   const postsByYear = {};
 
-  data.allMdx.nodes.forEach((post) => {
+  data.articles.nodes.forEach((post) => {
     const year = post.frontmatter.date.split('-')[1];
     postsByYear[year] = [...(postsByYear[year] || []), post];
   });
@@ -93,36 +95,15 @@ const Blog = ({ data }) => {
 
       <section>
         <Heading headingText="Featured" />
-        <Wrapper>
-          <Link to="/blog/post-1">
-            <time>September 10, 2020</time>
-            <h3>How should I style my react application?</h3>
-            <p>
-              Learn how to add authencitaion with next.js. This guide covers
-              custeom react hooks, protecting routers and redirecting.
-            </p>
-          </Link>
-        </Wrapper>
-        <Wrapper>
-          <Link to="/blog/post-1">
-            <time>September 10, 2020</time>
-            <h3>How should I style my react application?</h3>
-            <p>
-              Learn how to add authencitaion with next.js. This guide covers
-              custeom react hooks, protecting routers and redirecting.
-            </p>
-          </Link>
-        </Wrapper>
-        <Wrapper>
-          <Link to="/blog/post-1">
-            <time>September 10, 2020</time>
-            <h3>How should I style my react application?</h3>
-            <p>
-              Learn how to add authencitaion with next.js. This guide covers
-              custeom react hooks, protecting routers and redirecting.
-            </p>
-          </Link>
-        </Wrapper>
+        {featured.nodes.map((item) => (
+          <Wrapper>
+            <Link to={`/blog/${item.frontmatter.slug}`}>
+              <time>{item.frontmatter.date}</time>
+              <h3>{item.frontmatter.title}</h3>
+              <p>{item.frontmatter.subtitle}</p>
+            </Link>
+          </Wrapper>
+        ))}
       </section>
       <ArticlesList>
         <Heading headingText="All articles" />
@@ -147,13 +128,26 @@ const Blog = ({ data }) => {
 };
 
 export const query = graphql`
-  {
-    allMdx(sort: { order: DESC, fields: frontmatter___date }) {
+  query {
+    articles: allMdx(sort: { order: DESC, fields: frontmatter___date }) {
       nodes {
         frontmatter {
           date(formatString: "DD MMM-YYYY")
           slug
           title
+        }
+      }
+    }
+    featured: allMdx(
+      filter: { frontmatter: { featured: { eq: true } } }
+      sort: { order: DESC, fields: frontmatter___date }
+    ) {
+      nodes {
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          slug
+          title
+          subtitle
         }
       }
     }
