@@ -1,23 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link, graphql } from 'gatsby';
 
-// Utilities
 import kebabCase from 'lodash/kebabCase';
 
-// Components
-import { Helmet } from 'react-helmet';
-import { Link, graphql } from 'gatsby';
+import Layout from '../components/layout';
 
 const TagsPage = ({
   data: {
     allMdx: { group },
-    site: {
-      siteMetadata: { title },
-    },
   },
 }) => (
-  <div>
-    <Helmet title={title} />
+  <Layout>
     <div>
       <h1>Tags</h1>
       <ul>
@@ -30,7 +24,7 @@ const TagsPage = ({
         ))}
       </ul>
     </div>
-  </div>
+  </Layout>
 );
 
 TagsPage.propTypes = {
@@ -42,11 +36,6 @@ TagsPage.propTypes = {
           totalCount: PropTypes.number.isRequired,
         }).isRequired,
       ),
-    }),
-    site: PropTypes.objectOf({
-      siteMetadata: PropTypes.objectOf({
-        title: PropTypes.string.isRequired,
-      }),
     }),
   }).isRequired,
 };
