@@ -29,8 +29,8 @@ const PostTemplate = ({ data }) => {
 };
 
 PostTemplate.propTypes = {
-  data: PropTypes.shapeOf({
-    mdx: PropTypes.shapeOf({
+  data: PropTypes.objectOf({
+    mdx: PropTypes.objectOf({
       frontmatter: PropTypes.objectOf({
         slug: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
