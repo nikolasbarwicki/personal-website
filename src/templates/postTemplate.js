@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import styled from 'styled-components';
+import { MDXProvider } from '@mdx-js/react';
+import Code from '../components/Code';
 
 import Layout from '../components/layout';
+
+const components = {
+  pre: Code,
+};
 
 const Article = styled.article`
   p {
@@ -82,7 +88,9 @@ const PostTemplate = ({ data }) => {
             <span>{`${mdx.timeToRead} min read`}</span>
           </HeaderInnerWrapper>
         </Header>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
+        <MDXProvider components={components}>
+          <MDXRenderer>{mdx.body}</MDXRenderer>
+        </MDXProvider>
       </Article>
     </Layout>
   );

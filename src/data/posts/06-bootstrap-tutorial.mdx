@@ -11,6 +11,15 @@ subtitle: Learn how to add authencitaion with next.js. This guide covers custeom
 
 In the early days of the internet, websites often consisted of static data in an HTML page. But now that web applications have become more interactive and dynamic, it has become increasingly necessary to do intensive operations like make external network requests to retrieve API data. To handle these operations in JavaScript, a developer must use asynchronous programming techniques.
 
+```javascript
+function myFunction() {
+  const iterable = [10, 20, 30];
+  for (const value of iterable) {
+    console.log(value);
+  }
+}
+```
+
 Since JavaScript is a [single-threaded](https://example.com) programming language with a synchronous execution model that proccesses one operation after another, it can only process one statement at a time. However, an action like requesting data from an API can take an indeterminate amount of time, depending on the size of data being requested, the speed of the network connection, and other factors. If API calls were performed in a synchronous manner, the browser would not be able to handle any user input, like scrolling or clicking a button, until that operation completes. This is known as blocking.
 
 ### Browser environment has many Web APIs
