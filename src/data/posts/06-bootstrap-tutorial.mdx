@@ -7,4 +7,30 @@ featured: true
 subtitle: Learn how to add authencitaion with next.js. This guide covers custeom react hooks, protecting routers and redirecting.
 ---
 
-# Hello, world!
+### Introduction
+
+In the early days of the internet, websites often consisted of static data in an HTML page. But now that web applications have become more interactive and dynamic, it has become increasingly necessary to do intensive operations like make external network requests to retrieve API data. To handle these operations in JavaScript, a developer must use asynchronous programming techniques.
+
+Since JavaScript is a [single-threaded](https://example.com) programming language with a synchronous execution model that proccesses one operation after another, it can only process one statement at a time. However, an action like requesting data from an API can take an indeterminate amount of time, depending on the size of data being requested, the speed of the network connection, and other factors. If API calls were performed in a synchronous manner, the browser would not be able to handle any user input, like scrolling or clicking a button, until that operation completes. This is known as blocking.
+
+### Browser environment has many Web APIs
+
+In order to prevent blocking behavior, the browser environment has many Web APIs that JavaScript can access that are asynchronous, meaning they can run in parallel with other operations instead of sequentially. This is useful because it allows the user to continue using the browser normally while the asynchronous operations are being processed.
+
+> As a JavaScript developer, you need to know how to work with asynchronous Web
+> APIs and handle the response or error of those operations.
+
+In this article, you will learn about the event loop, the original way of dealing with asynchronous behavior through callbacks, the updated ECMAScript 2015 addition of promises, and the modern practice of using async/await.
+
+### Provider and reducers
+
+Let’s consider the following reducers:
+As we can see, this is the kind of reducers we’re used to seeing in any Redux based application. The objective is to have the same reducers working for our implementation of Redux.
+
+First step: Defining our This will be the core of our reimplementation of Redux. The Redux Provider works quite like a basic React Context Provider, so we can base our work on the `Context API` Our store Provider will wrap our app and let it access our store object at any level. Here’s how it looks like:
+
+Second step: We can see above the mention of the createStore function. If you’re familiar with Redux this should ring a bell. This function takes our reducer, and the initial state object of our app returns an object with 2 essential items that are injected into the app through our Provider:
+
+dispatch: the function that lets us dispatch Redux action
+state: the object containing the global state of our app.
+To reimplement this function in our example, let’s use the new React hooks. React has a very handy pre-built hook called useReducer which actually returns these 2 items stated above:

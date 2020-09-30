@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 
 import Tag from './Tag';
@@ -24,6 +24,24 @@ const Wrapper = styled.article`
 `;
 
 const Articles = () => {
+  const data = useStaticQuery(graphql`
+    {
+      allMdx(limit: 3, sort: { fields: frontmatter___date, order: DESC }) {
+        nodes {
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY", locale: "")
+            slug
+            tags
+            title
+            subtitle
+          }
+        }
+      }
+    }
+  `);
+
+  const { allMdx } = data;
+
   return (
     <section>
       <Heading
@@ -31,52 +49,24 @@ const Articles = () => {
         linkText="See all articles &gt;"
         linkTo="/blog"
       />
-      <Wrapper>
-        <Link to="/blog/post-1">
-          <time>September 10, 2020</time>
-          <h3>How should I style my react application?</h3>
-          <p>
-            Learn how to add authencitaion with next.js. This guide covers
-            custeom react hooks, protecting routers and redirecting on the
-            server and includes.
-          </p>
-        </Link>
-        <div>
-          <Tag linkTo="/tags/javascript" text="javascript" />
-          <Tag linkTo="/tags/api" text="api" />
-          <Tag linkTo="/tags/database" text="database" />
-        </div>
-      </Wrapper>
-      <Wrapper>
-        <Link to="/blog/post-1">
-          <time>September 10, 2020</time>
-          <h3>How should I style my react application?</h3>
-          <p>
-            Learn how to add authencitaion with next.js. This guide covers
-            custeom react hooks, protecting routers and redirecting on the
-            server and includes.
-          </p>
-        </Link>
-        <div>
-          <Tag linkTo="/tags/database" text="database" />
-          <Tag linkTo="/tags/api" text="api" />
-        </div>
-      </Wrapper>
-      <Wrapper>
-        <Link to="/blog/post-1">
-          <time>September 10, 2020</time>
-          <h3>How should I style my react application?</h3>
-          <p>
-            Learn how to add authencitaion with next.js. This guide covers
-            custeom react hooks, protecting routers and redirecting on the
-            server and includes.
-          </p>
-        </Link>
-        <div>
-          <Tag linkTo="/tags/api" text="api" />
-          <Tag linkTo="/tags/database" text="database" />
-        </div>
-      </Wrapper>
+      {allMdx.nodes.map((node) => {
+        const { frontmatter } = node;
+
+        const tags = frontmatter.tags.map((tag) => (
+          <Tag linkTo={`/tags/${tag}`} text={tag} />
+        ));
+
+        return (
+          <Wrapper>
+            <Link to={`/blog/${frontmatter.slug}`}>
+              <time>{frontmatter.date}</time>
+              <h3>{frontmatter.title}</h3>
+              <p>{frontmatter.subtitle}</p>
+            </Link>
+            <div>{tags}</div>
+          </Wrapper>
+        );
+      })}
     </section>
   );
 };
