@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const Pre = styled.pre`
   text-align: left;
-  margin-bottom: 2rem;
+  margin: 0.5rem -2.5rem 2.5rem -2.5rem;
   padding: 2rem;
   border-radius: 1rem;
 `;

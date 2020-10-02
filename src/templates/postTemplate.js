@@ -5,11 +5,12 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import Code from '../components/Code';
-
+import Callout from '../components/Callout';
 import Layout from '../components/layout';
 
 const components = {
   pre: Code,
+  Callout,
 };
 
 const Article = styled.article`
@@ -28,18 +29,6 @@ const Article = styled.article`
     color: #fff;
     border-radius: 0.5rem;
     padding: 4px 6px;
-  }
-
-  blockquote {
-    background-color: #f1f5ff;
-    color: #383b40;
-    border-left: 3px solid #59a1ff;
-    padding: 3rem;
-    margin: 2rem 0;
-
-    p {
-      margin: 0;
-    }
   }
 
   a {
