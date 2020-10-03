@@ -53,11 +53,11 @@ const Articles = () => {
         const { frontmatter } = node;
 
         const tags = frontmatter.tags.map((tag) => (
-          <Tag linkTo={`/tags/${tag}`} text={tag} />
+          <Tag key={tag} linkTo={`/tags/${tag}`} text={tag} />
         ));
 
         return (
-          <Wrapper>
+          <Wrapper key={frontmatter.slug}>
             <Link to={`/blog/${frontmatter.slug}`}>
               <time>{frontmatter.date}</time>
               <h3>{frontmatter.title}</h3>
