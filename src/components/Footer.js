@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import { IconContext } from 'react-icons';
-import { FiLinkedin, FiGithub } from 'react-icons/fi';
-import { FaDribbble, FaEnvelope } from 'react-icons/fa';
+import MailIcon from '../assets/icons/mail.svg';
+import DribbbleIcon from '../assets/icons/dribbble.svg';
+import GithubIcon from '../assets/icons/github.svg';
+import LinkedInIcon from '../assets/icons/linkedin.svg';
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,11 +15,15 @@ const Wrapper = styled.div`
   hr {
     border: 1px solid ${(props) => props.theme.lightGray};
   }
-`;
 
-const IconsWrapper = styled.div`
   svg {
     margin-left: 2.5rem;
+    fill: ${(props) => props.theme.lightGray};
+    cursor: pointer;
+
+    :hover {
+      fill: ${(props) => props.theme.blue};
+    }
   }
 `;
 
@@ -30,14 +34,20 @@ const Footer = () => {
         <hr />
         <Wrapper>
           <span>© 2020 Nikolas Barwicki</span>
-          <IconContext.Provider value={{ size: '2.5rem' }}>
-            <IconsWrapper>
-              <FaEnvelope />
-              <FaDribbble />
-              <FiGithub />
-              <FiLinkedin />
-            </IconsWrapper>
-          </IconContext.Provider>
+          <div style={{ height: '25px' }}>
+            <a href="mailto:hello@nikolasbarwicki.com">
+              <MailIcon width="25" height="25" />
+            </a>
+            <a href="https://github.com/nikolasbarwicki">
+              <GithubIcon width="25" height="25" />
+            </a>
+            <a href="https://www.linkedin.com/in/nikolas-barwicki/">
+              <LinkedInIcon width="25" height="25" />
+            </a>
+            <a href="https://dribbble.com/barwicki">
+              <DribbbleIcon width="25" height="25" />
+            </a>
+          </div>
         </Wrapper>
       </footer>
     </>

@@ -65,6 +65,12 @@ const GlobalStyle = createGlobalStyle`
   time {
     font-size: 1.4rem;
   }
+
+  hr {
+    border: 0;
+    height: 0;
+    border-bottom: 1px solid ${theme.lightGray};
+  }
 `;
 
 export default GlobalStyle;
