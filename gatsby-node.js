@@ -9,10 +9,23 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const result = await graphql(`
     {
       postsRemark: allMdx(sort: { order: DESC, fields: frontmatter___date }) {
-        nodes {
-          frontmatter {
-            slug
-            tags
+        edges {
+          next {
+            frontmatter {
+              slug
+              title
+            }
+          }
+          previous {
+            frontmatter {
+              slug
+              title
+            }
+          }
+          node {
+            frontmatter {
+              slug
+            }
           }
         }
       }
@@ -31,12 +44,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   }
 
   // Create post detail pages
-  result.data.postsRemark.nodes.forEach((node) => {
+  result.data.postsRemark.edges.forEach(({ node, next, previous }) => {
     createPage({
       path: `blog/${node.frontmatter.slug}`,
       component: postTemplate,
       context: {
         slug: node.frontmatter.slug,
+        next,
+        previous,
       },
     });
   });

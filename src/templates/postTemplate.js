@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
@@ -14,6 +14,8 @@ const components = {
 };
 
 const Article = styled.article`
+  margin-bottom: 7rem;
+
   p {
     margin-bottom: 2rem;
     color: ${(props) => props.theme.darkBlue};
@@ -32,9 +34,8 @@ const Article = styled.article`
   }
 
   a {
-    font-weight: 700;
     background: linear-gradient(transparent 90%, #dbe4ff 0);
-    color: #00173e;
+    color: ${(props) => props.theme.blue};
 
     :hover {
       background: linear-gradient(transparent 90%, #59a1ff 0);
@@ -43,12 +44,11 @@ const Article = styled.article`
 `;
 
 const Header = styled.header`
-  h2 {
-    margin: 3.5rem 0;
+  h1 {
+    margin: 1rem 0;
   }
 
   hr {
-    border: 1px solid #a4aed2;
     margin: 1.5rem 0;
   }
 `;
@@ -59,8 +59,46 @@ const HeaderInnerWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const PostTemplate = ({ data }) => {
+const ArticlesLink = styled.ul`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width: 100%;
+
+  a {
+    background: linear-gradient(transparent 90%, #dbe4ff 0);
+    color: ${(props) => props.theme.blue};
+
+    :hover {
+      background: linear-gradient(transparent 90%, #59a1ff 0);
+    }
+  }
+`;
+
+const PostTemplate = ({ data, pageContext }) => {
   const { mdx } = data;
+  const { next, previous } = pageContext;
+
+  const nextArticle = next && (
+    <li style={{ textAlign: 'start' }}>
+      <Link to={`/blog/${next.frontmatter.slug}`}>
+        <span>Next</span>
+        <br />
+        <span>{next.frontmatter.title}</span>
+      </Link>
+    </li>
+  );
+
+  const prevArticle = previous && (
+    <li style={{ textAlign: 'end' }}>
+      <Link to={`/blog/${previous.frontmatter.slug}`}>
+        <span>Previous</span>
+
+        <br />
+        {previous.frontmatter.title}
+      </Link>
+    </li>
+  );
 
   return (
     <Layout>
@@ -81,6 +119,11 @@ const PostTemplate = ({ data }) => {
           <MDXRenderer>{mdx.body}</MDXRenderer>
         </MDXProvider>
       </Article>
+      <nav />
+      <ArticlesLink>
+        {nextArticle}
+        {prevArticle}
+      </ArticlesLink>
     </Layout>
   );
 };
@@ -98,6 +141,20 @@ PostTemplate.propTypes = {
       body: PropTypes.string.isRequired,
       timeToRead: PropTypes.string.isRequired,
     }),
+  }).isRequired,
+  pageContext: PropTypes.objectOf({
+    previous: PropTypes.objectOf({
+      frontmatter: PropTypes.objectOf({
+        title: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+    next: PropTypes.objectOf({
+      frontmatter: PropTypes.objectOf({
+        title: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
   }).isRequired,
 };
 

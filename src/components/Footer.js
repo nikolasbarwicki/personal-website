@@ -12,10 +12,6 @@ const Wrapper = styled.div`
   height: 8rem;
   color: ${(props) => props.theme.lightGray};
 
-  hr {
-    border: 1px solid ${(props) => props.theme.lightGray};
-  }
-
   svg {
     margin-left: 2.5rem;
     fill: ${(props) => props.theme.lightGray};
@@ -29,28 +25,26 @@ const Wrapper = styled.div`
 
 const Footer = () => {
   return (
-    <>
-      <footer>
-        <hr />
-        <Wrapper>
-          <span>© 2020 Nikolas Barwicki</span>
-          <div style={{ height: '25px' }}>
-            <a href="mailto:hello@nikolasbarwicki.com">
-              <MailIcon width="25" height="25" />
-            </a>
-            <a href="https://github.com/nikolasbarwicki">
-              <GithubIcon width="25" height="25" />
-            </a>
-            <a href="https://www.linkedin.com/in/nikolas-barwicki/">
-              <LinkedInIcon width="25" height="25" />
-            </a>
-            <a href="https://dribbble.com/barwicki">
-              <DribbbleIcon width="25" height="25" />
-            </a>
-          </div>
-        </Wrapper>
-      </footer>
-    </>
+    <footer style={{ marginTop: '3.5rem' }}>
+      <hr />
+      <Wrapper>
+        <span>© 2020 Nikolas Barwicki</span>
+        <div style={{ height: '25px' }}>
+          <a href="mailto:hello@nikolasbarwicki.com">
+            <MailIcon width="25" height="25" />
+          </a>
+          <a href="https://github.com/nikolasbarwicki">
+            <GithubIcon width="25" height="25" />
+          </a>
+          <a href="https://www.linkedin.com/in/nikolas-barwicki/">
+            <LinkedInIcon width="25" height="25" />
+          </a>
+          <a href="https://dribbble.com/barwicki">
+            <DribbbleIcon width="25" height="25" />
+          </a>
+        </div>
+      </Wrapper>
+    </footer>
   );
 };
 

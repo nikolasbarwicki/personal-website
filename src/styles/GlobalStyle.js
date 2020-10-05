@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
       color: ${theme.darkBlue};
-      font-family: "Asap", sans-serif;
+      font-family: "Overpass", sans-serif;
       line-height: 1.2;
   }
 
