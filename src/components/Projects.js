@@ -1,4 +1,6 @@
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import styled from 'styled-components';
 
 import Heading from './Heading';
@@ -24,6 +26,32 @@ const ProjectContent = styled.div`
 `;
 
 const Projects = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      project1: file(relativePath: { regex: "/babysitter/" }) {
+        childImageSharp {
+          fixed(width: 550) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+      project2: file(relativePath: { regex: "/budgetapp/" }) {
+        childImageSharp {
+          fixed(width: 550) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+      project3: file(relativePath: { regex: "/pantryapp/" }) {
+        childImageSharp {
+          fixed(width: 550) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `);
+
   return (
     <section>
       <Heading
@@ -34,7 +62,9 @@ const Projects = () => {
       />
       <ul>
         <Project>
-          <img src="https://source.unsplash.com/550x330" alt="dummy text" />
+          <div>
+            <Img fixed={data.project1.childImageSharp.fixed} alt="dummy text" />
+          </div>
           <ProjectContent>
             <h3>Skin Balance</h3>
             <span>React, Redux, Emotion, Jest</span>
@@ -46,7 +76,9 @@ const Projects = () => {
           </ProjectContent>
         </Project>
         <Project>
-          <img src="https://source.unsplash.com/550x330" alt="dummy text" />
+          <div>
+            <Img fixed={data.project2.childImageSharp.fixed} alt="dummy text" />
+          </div>
           <ProjectContent>
             <h3>Budgety App</h3>
             <span>React, Redux, Emotion, Jest</span>
@@ -59,7 +91,9 @@ const Projects = () => {
           </ProjectContent>
         </Project>
         <Project>
-          <img src="https://source.unsplash.com/550x330" alt="dummy text" />
+          <div>
+            <Img fixed={data.project3.childImageSharp.fixed} alt="dummy text" />
+          </div>
           <ProjectContent>
             <h3>Pantry App</h3>
             <span>React, Redux, Emotion, Jest</span>
