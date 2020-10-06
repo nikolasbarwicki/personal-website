@@ -5,6 +5,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import Code from '../components/Code';
+import Tag from '../components/Tag';
 import Callout from '../components/Callout';
 import Layout from '../components/layout';
 
@@ -65,14 +66,24 @@ const ArticlesLink = styled.ul`
   justify-content: space-between;
   width: 100%;
 
-  a {
-    background: linear-gradient(transparent 90%, #dbe4ff 0);
-    color: ${(props) => props.theme.blue};
-
-    :hover {
-      background: linear-gradient(transparent 90%, #59a1ff 0);
-    }
+  li {
+    width: 48%;
   }
+`;
+
+const InvertedButtonLink = styled(Link)`
+  font-size: 1.4rem;
+  padding: 0rem 2rem;
+  min-height: 5.5rem;
+  display: block;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${(props) => props.theme.blue};
+  font-weight: 500;
+  border-radius: 1rem;
+  border: 2px solid ${(props) => props.theme.blue};
 `;
 
 const PostTemplate = ({ data, pageContext }) => {
@@ -81,49 +92,46 @@ const PostTemplate = ({ data, pageContext }) => {
 
   const nextArticle = next && (
     <li style={{ textAlign: 'start' }}>
-      <Link to={`/blog/${next.frontmatter.slug}`}>
-        <span>Next</span>
-        <br />
+      <InvertedButtonLink to={`/blog/${next.frontmatter.slug}`}>
+        <span style={{ marginRight: '0.75rem' }}>←</span>
         <span>{next.frontmatter.title}</span>
-      </Link>
+      </InvertedButtonLink>
     </li>
   );
 
   const prevArticle = previous && (
     <li style={{ textAlign: 'end' }}>
-      <Link to={`/blog/${previous.frontmatter.slug}`}>
-        <span>Previous</span>
-
-        <br />
-        {previous.frontmatter.title}
-      </Link>
+      <InvertedButtonLink to={`/blog/${previous.frontmatter.slug}`}>
+        <span>{previous.frontmatter.title}</span>
+        <span style={{ marginLeft: '0.75rem' }}>→</span>
+      </InvertedButtonLink>
     </li>
   );
 
   return (
     <Layout>
+      <Header>
+        <h1>{mdx.frontmatter.title}</h1>
+        <HeaderInnerWrapper>
+          <span>{`${mdx.frontmatter.date} • ${mdx.timeToRead} min read`}</span>
+          <div>
+            {mdx.frontmatter.tags.map((tag) => (
+              <Tag linkTo={`/tags/${tag}`} text={tag} />
+            ))}
+          </div>
+        </HeaderInnerWrapper>
+      </Header>
       <Article>
-        <Header>
-          <h1>{mdx.frontmatter.title}</h1>
-          <span>{mdx.frontmatter.subtitle}</span>
-          <hr />
-          <HeaderInnerWrapper>
-            <div>
-              <time>{mdx.frontmatter.date}</time>
-              <span> by Nikolas Barwicki</span>
-            </div>
-            <span>{`${mdx.timeToRead} min read`}</span>
-          </HeaderInnerWrapper>
-        </Header>
         <MDXProvider components={components}>
           <MDXRenderer>{mdx.body}</MDXRenderer>
         </MDXProvider>
       </Article>
-      <nav />
-      <ArticlesLink>
-        {nextArticle}
-        {prevArticle}
-      </ArticlesLink>
+      <nav>
+        <ArticlesLink>
+          {nextArticle}
+          {prevArticle}
+        </ArticlesLink>
+      </nav>
     </Layout>
   );
 };
