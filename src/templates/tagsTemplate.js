@@ -4,12 +4,13 @@ import styled from 'styled-components';
 
 // Components
 import { Link, graphql } from 'gatsby';
+import Tag from '../components/Tag';
 import Layout from '../components/layout';
 
 const Header = styled.header`
   width: 100%;
   margin: 0 auto;
-  padding: 7rem 0 7rem;
+  padding: 7rem 0 5rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -36,11 +37,25 @@ const ArticleLink = styled(Link)`
   }
 `;
 
-const TagsTemplate = ({ pageContext, data }) => {
-  const { tag } = pageContext;
-  const { nodes, totalCount } = data.allMdx;
+const TagsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 
-  const tagHeader = `Post${totalCount === 1 ? '' : 's'} tagged: ${tag}`;
+  a {
+    margin-top: 1rem;
+  }
+
+  margin-bottom: 3.5rem;
+`;
+
+const TagsTemplate = ({ pageContext, data }) => {
+  const { nodes, totalCount } = data.articles;
+  const { group } = data.tags;
+
+  const tagHeader = `Post${totalCount === 1 ? '' : 's'} tagged: ${
+    pageContext.tag
+  }`;
 
   return (
     <Layout>
@@ -48,6 +63,11 @@ const TagsTemplate = ({ pageContext, data }) => {
         <h1>{tagHeader}</h1>
         <p>{`${totalCount} post${totalCount === 1 ? '' : 's'} found.`}</p>
       </Header>
+      <TagsWrapper>
+        {group.map(({ tag }) => (
+          <Tag linkTo={`/tags/${tag}`} text={tag} />
+        ))}
+      </TagsWrapper>
       <ul>
         {nodes.map((node) => {
           const { slug } = node.frontmatter;
@@ -97,7 +117,7 @@ export default TagsTemplate;
 
 export const pageQuery = graphql`
   query($tag: String) {
-    allMdx(
+    articles: allMdx(
       limit: 2000
       sort: { fields: frontmatter___date, order: DESC }
       filter: { frontmatter: { tags: { in: [$tag] } } }
@@ -109,6 +129,12 @@ export const pageQuery = graphql`
           title
           date(formatString: "DD MMM")
         }
+      }
+    }
+
+    tags: allMdx {
+      group(field: frontmatter___tags) {
+        tag: fieldValue
       }
     }
   }

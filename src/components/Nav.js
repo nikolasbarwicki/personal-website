@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
+import Img from 'gatsby-image';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Wrapper = styled.nav`
+  z-index: 10;
   position: fixed;
   width: 110rem;
   height: 8rem;
@@ -21,10 +23,24 @@ const NavLinks = styled.div`
 `;
 
 const Nav = () => {
+  const data = useStaticQuery(graphql`
+    {
+      file(relativePath: { regex: "/logo.png/" }) {
+        childImageSharp {
+          fixed(width: 50) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `);
+
   return (
     <Wrapper>
       <Link to="/">
-        <span>Logo</span>
+        <div>
+          <Img fixed={data.file.childImageSharp.fixed} alt="dummy text" />
+        </div>
       </Link>
       <NavLinks>
         <Link
