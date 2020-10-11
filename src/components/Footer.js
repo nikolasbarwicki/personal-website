@@ -12,14 +12,24 @@ const Wrapper = styled.div`
   height: 8rem;
   color: ${(props) => props.theme.lightGray};
 
+  a {
+    :not(:first-child) {
+      margin-left: 2.5rem;
+    }
+  }
+
   svg {
-    margin-left: 2.5rem;
     fill: ${(props) => props.theme.lightGray};
     cursor: pointer;
 
     :hover {
       fill: ${(props) => props.theme.blue};
     }
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column-reverse;
+    margin: 3.5rem 0;
   }
 `;
 

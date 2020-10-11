@@ -8,12 +8,32 @@ import Heading from './Heading';
 const Project = styled.li`
   display: flex;
   margin-bottom: 7rem;
+  flex-direction: row;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin-bottom: 10.5rem;
+  }
+`;
+
+const ImgWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  flex-basis: 50%;
+  flex-grow: 0;
 `;
 
 const ProjectContent = styled.div`
   padding: 0 3.5rem 0 3.5rem;
   display: flex;
   flex-direction: column;
+  flex-basis: 50%;
+  flex-grow: 0;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 2rem;
+    padding: 0;
+  }
 
   a {
     color: ${(props) => props.theme.blue};
@@ -30,22 +50,22 @@ const Projects = () => {
     query {
       project1: file(relativePath: { regex: "/babysitter/" }) {
         childImageSharp {
-          fixed(width: 550) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 550) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
       project2: file(relativePath: { regex: "/budgetapp/" }) {
         childImageSharp {
-          fixed(width: 550) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 550) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
       project3: file(relativePath: { regex: "/pantryapp/" }) {
         childImageSharp {
-          fixed(width: 550) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 550) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -62,9 +82,9 @@ const Projects = () => {
       />
       <ul>
         <Project>
-          <div>
-            <Img fixed={data.project1.childImageSharp.fixed} alt="dummy text" />
-          </div>
+          <ImgWrapper>
+            <Img fluid={data.project1.childImageSharp.fluid} alt="dummy text" />
+          </ImgWrapper>
           <ProjectContent>
             <h3>Skin Balance</h3>
             <span>React, Redux, Emotion, Jest</span>
@@ -76,9 +96,9 @@ const Projects = () => {
           </ProjectContent>
         </Project>
         <Project>
-          <div>
-            <Img fixed={data.project2.childImageSharp.fixed} alt="dummy text" />
-          </div>
+          <ImgWrapper>
+            <Img fluid={data.project2.childImageSharp.fluid} alt="dummy text" />
+          </ImgWrapper>
           <ProjectContent>
             <h3>Budgety App</h3>
             <span>React, Redux, Emotion, Jest</span>
@@ -91,9 +111,9 @@ const Projects = () => {
           </ProjectContent>
         </Project>
         <Project>
-          <div>
-            <Img fixed={data.project3.childImageSharp.fixed} alt="dummy text" />
-          </div>
+          <ImgWrapper>
+            <Img fluid={data.project3.childImageSharp.fluid} alt="dummy text" />
+          </ImgWrapper>
           <ProjectContent>
             <h3>Pantry App</h3>
             <span>React, Redux, Emotion, Jest</span>

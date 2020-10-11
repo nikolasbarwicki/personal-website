@@ -10,6 +10,11 @@ const Wrapper = styled.div`
   align-items: center;
   margin-bottom: 3.5rem;
 
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   a {
     color: ${(props) => props.theme.blue};
     font-weight: 500;

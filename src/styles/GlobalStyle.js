@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
 
     box-sizing: border-box;
-
   }
 
   *::selection {
@@ -21,6 +20,14 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: ${theme.darkGray};
+
+    @media screen and (max-width: 600px) {
+      font-size: 50%;
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 55%;
+    }
   }
 
   body {

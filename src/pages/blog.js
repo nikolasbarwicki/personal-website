@@ -36,12 +36,13 @@ const ArticleLink = styled(Link)`
   display: flex;
   cursor: pointer;
 
-  time {
-    display: block;
-    width: 8rem;
+  @media screen and (max-width: 600px) {
+    padding: 1.5rem 1rem;
   }
 
-  div {
+  time {
+    display: block;
+    min-width: 8rem;
   }
 
   :hover {

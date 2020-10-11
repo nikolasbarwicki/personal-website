@@ -15,7 +15,7 @@ const Line = styled.div`
   display: table-row;
 `;
 
-const LineNo = styled.span`
+const LineNumber = styled.span`
   display: table-cell;
   text-align: right;
   padding-right: 1em;
@@ -27,9 +27,9 @@ const LineContent = styled.span`
   display: table-cell;
 `;
 
-export default (props) => {
+const Code = (props) => {
   const className = props.children.props.className || '';
-  const matches = className.match(/language-(?<lang>.*)/);
+
   return (
     <Highlight
       {...defaultProps}
@@ -41,7 +41,7 @@ export default (props) => {
         <Pre className={className} style={style}>
           {tokens.map((line, i) => (
             <Line key={i} {...getLineProps({ line, key: i })}>
-              <LineNo>{i + 1}</LineNo>
+              <LineNumber>{i + 1}</LineNumber>
               <LineContent>
                 {line.map((token, key) => (
                   <span key={key} {...getTokenProps({ token, key })} />
@@ -54,3 +54,5 @@ export default (props) => {
     </Highlight>
   );
 };
+
+export default Code;

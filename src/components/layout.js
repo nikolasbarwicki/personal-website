@@ -11,6 +11,11 @@ import Footer from './Footer';
 const Wrapper = styled.div`
   max-width: 110rem;
   margin: 0 auto;
+
+  @media screen and (max-width: 1100px) {
+    width: 100vw;
+    padding: 0 3rem;
+  }
 `;
 
 const Main = styled.main`

@@ -10,16 +10,31 @@ const Wrapper = styled.article`
   grid-template-columns: 7fr 3fr;
   align-items: center;
 
-  time {
-    font-size: 1.4rem;
-  }
-
-  p {
-    margin: 1.5rem 0 1.5rem;
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: auto;
+    grid-template-rows: repeat(2, auto);
+    margin: 5rem 0;
   }
 
   div {
     justify-self: end;
+
+    @media screen and (max-width: 1100px) {
+      justify-self: start;
+    }
+  }
+`;
+
+const TagsWrapper = styled.div`
+  a {
+    :first-child {
+      margin-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    align-items: flex-start;
   }
 `;
 
@@ -52,18 +67,18 @@ const Articles = () => {
       {allMdx.nodes.map((node) => {
         const { frontmatter } = node;
 
-        const tags = frontmatter.tags.map((tag) => (
-          <Tag key={tag} linkTo={`/tags/${tag}`} text={tag} />
-        ));
-
         return (
           <Wrapper key={frontmatter.slug}>
             <Link to={`/blog/${frontmatter.slug}`}>
-              <time>{frontmatter.date}</time>
+              <time style={{ fontSize: '1.4rem' }}>{frontmatter.date}</time>
               <h3>{frontmatter.title}</h3>
-              <p>{frontmatter.subtitle}</p>
+              <p style={{ margin: '1.5rem 0' }}>{frontmatter.subtitle}</p>
             </Link>
-            <div>{tags}</div>
+            <TagsWrapper>
+              {frontmatter.tags.map((tag) => (
+                <Tag key={tag} linkTo={`/tags/${tag}`} text={tag} />
+              ))}
+            </TagsWrapper>
           </Wrapper>
         );
       })}

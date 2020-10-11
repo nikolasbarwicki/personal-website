@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
   width: 50%;
@@ -11,39 +11,35 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 600px) {
+    width: 90%;
+    padding: 10rem 0 10rem;
+  }
 `;
 
-const ButtonLink = styled(Link)`
+const Button = styled.button`
   display: block;
   height: 5rem;
   width: 16rem;
-  background-color: ${(props) => props.theme.blue};
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   font-weight: 500;
   border-radius: 1rem;
+  background-color: ${(props) => props.theme.blue};
+  color: white;
   box-shadow: ${(props) => props.theme.shadowBlue};
   margin-right: 5rem;
-`;
 
-const InvertedButtonLink = styled.a`
-  display: block;
-  height: 5rem;
-  width: 16rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${(props) => props.theme.blue};
-  font-weight: 500;
-  border-radius: 1rem;
-  border: 2px solid ${(props) => props.theme.blue};
-`;
-
-const LinksWrapper = styled.div`
-  display: flex;
-  margin: 5rem;
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      color: ${(props) => props.theme.blue};
+      background-color: white;
+      border: 2px solid ${(props) => props.theme.blue};
+      box-shadow: none;
+    `}
 `;
 
 const Hero = () => {
@@ -63,12 +59,14 @@ const Hero = () => {
         I&apos;m passionate about improving the lives of others through coding
         and constantly looking to learn new things everyday.
       </p>
-      <LinksWrapper>
-        <ButtonLink to="/blog">Visit blog</ButtonLink>
-        <InvertedButtonLink href="https://github.com/nikolasbarwicki">
+      <div style={{ display: 'flex', margin: '5rem' }}>
+        <Button as={Link} to="/blog">
+          Visit blog
+        </Button>
+        <Button secondary as="a" href="https://github.com/nikolasbarwicki">
           See projects
-        </InvertedButtonLink>
-      </LinksWrapper>
+        </Button>
+      </div>
     </Wrapper>
   );
 };

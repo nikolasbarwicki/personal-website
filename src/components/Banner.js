@@ -13,8 +13,19 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  @media screen and (max-width: 768px) {
+    padding: 3rem 4rem;
+    flex-direction: column;
+  }
+
   span {
     width: 60%;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
   }
 
   a {

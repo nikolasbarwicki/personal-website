@@ -1,7 +1,8 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
-import Img from 'gatsby-image';
 import styled from 'styled-components';
+import Img from 'gatsby-image';
+
 import theme from '../styles/theme';
 
 const Wrapper = styled.nav`
@@ -14,6 +15,11 @@ const Wrapper = styled.nav`
   align-items: center;
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.4);
+
+  @media screen and (max-width: 1100px) {
+    width: calc(100% - 6rem);
+    justify-content: space-between;
+  }
 `;
 
 const NavLinks = styled.div`
@@ -22,13 +28,20 @@ const NavLinks = styled.div`
   width: 14rem;
 `;
 
+const LogoWrapper = styled.div`
+  width: 50px;
+  @media screen and (max-width: 600px) {
+    max-width: 10vw;
+  }
+`;
+
 const Nav = () => {
   const data = useStaticQuery(graphql`
     {
       file(relativePath: { regex: "/logo.png/" }) {
         childImageSharp {
-          fixed(width: 50) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 100) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -38,9 +51,9 @@ const Nav = () => {
   return (
     <Wrapper>
       <Link to="/">
-        <div>
-          <Img fixed={data.file.childImageSharp.fixed} alt="dummy text" />
-        </div>
+        <LogoWrapper>
+          <Img fluid={data.file.childImageSharp.fluid} alt="dummy text" />
+        </LogoWrapper>
       </Link>
       <NavLinks>
         <Link
