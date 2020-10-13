@@ -1,11 +1,33 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: 'Nikolas Barwicki | Blog & Portfolio',
+    author: {
+      name: 'Nikolas Barwicki',
+    },
+    pathPrefix: '/',
+    siteUrl: 'https://www.nikolasbarwicki.com',
+    description:
+      'I am passionate about improving the lives of others through coding and constantly looking to learn new things every day.',
   },
   plugins: [
+    // Meta
     `gatsby-plugin-react-helmet`,
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: 'Nikolas Barwicki | Blog & Portfolio',
+        short_name: 'Nikolas Barwicki',
+        description:
+          'I am passionate about improving the lives of others through coding and constantly looking to learn new things every day.',
+        start_url: '/',
+        background_color: 'white',
+        theme_color: '#0083FF',
+        display: 'minimal-ui',
+        icon: `src/assets/icons/icon.png`,
+      },
+    },
+
+    // Images and static
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -17,25 +39,17 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/src/data/posts`,
+        path: `${__dirname}/src/content`,
       },
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    // {
-    //   resolve: `gatsby-plugin-manifest`,
-    //   options: {
-    //     name: `gatsby-starter-default`,
-    //     short_name: `starter`,
-    //     start_url: `/`,
-    //     background_color: `#663399`,
-    //     theme_color: `#663399`,
-    //     display: `minimal-ui`,
-    //     icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-    //   },
-    // },
-    `gatsby-plugin-styled-components`,
+
+    // Markdown
     `gatsby-plugin-mdx`,
+
+    // Plugins
+    `gatsby-plugin-styled-components`,
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
@@ -44,8 +58,19 @@ module.exports = {
         },
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-nprogress`,
+      options: {
+        color: `tomato`,
+        showSpinner: false,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-180462871-1',
+        head: true,
+      },
+    },
   ],
 };
